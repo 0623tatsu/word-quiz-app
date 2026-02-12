@@ -1,0 +1,51 @@
+import streamlit as st
+import random
+
+# 単語帳
+words = {
+    "reception": "もてなし、歓迎会、フロント",
+    "portion": "一盛り、一部",
+    "laundry": "洗濯物",
+    "nap": "昼寝",
+    "wake": "起こす",
+}
+
+# 初期化
+if "score" not in st.session_state:
+    st.session_state.score = 0
+    st.session_state.q = None
+    st.session_state.options = []
+
+st.title("英単語 四択クイズ")
+
+# 新しい問題を作る
+def new_question():
+    q = random.choice(list(words.keys()))
+    correct = words[q]
+    wrong = list(words.values())
+    wrong.remove(correct)
+
+    options = random.sample(wrong, 3) + [correct]
+    random.shuffle(options)
+
+    st.session_state.q = q
+    st.session_state.correct = correct
+    st.session_state.options = options
+
+# 最初の問題
+if st.session_state.q is None:
+    new_question()
+
+st.subheader(f"問題： {st.session_state.q}")
+
+# 選択肢ボタン
+for opt in st.session_state.options:
+    if st.button(opt):
+        if opt == st.session_state.correct:
+            st.success("⭕ 正解！")
+            st.session_state.score += 1
+        else:
+            st.error(f"❌ 不正解… 正解：{st.session_state.correct}")
+        new_question()
+
+st.write(f"現在の得点：{st.session_state.score}")
