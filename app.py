@@ -1,7 +1,8 @@
 import streamlit as st
 import random
 
-word_list ={
+# 単語帳
+words = {
   "reception": "もてなし、歓迎会、（ホテルの）フロント、受信状況",
   "portion": "（食事の）一盛り、（食堂などの）一人前、一部",
   "laundry": "洗濯、洗濯物、クリーニング店",
@@ -56,6 +57,7 @@ word_list ={
   "deliver": "〜を配達する；（演説など）をする"
 }
 
+# 初期化
 if "score" not in st.session_state:
     st.session_state.score = 0
     st.session_state.q = None
@@ -63,6 +65,7 @@ if "score" not in st.session_state:
 
 st.title("英単語 四択クイズ")
 
+# 新しい問題を作る
 def new_question():
     q = random.choice(list(words.keys()))
     correct = words[q]
@@ -76,11 +79,13 @@ def new_question():
     st.session_state.correct = correct
     st.session_state.options = options
 
+# 最初の問題
 if st.session_state.q is None:
     new_question()
 
 st.subheader(f"問題： {st.session_state.q}")
 
+# 選択肢ボタン
 for opt in st.session_state.options:
     if st.button(opt):
         if opt == st.session_state.correct:
@@ -91,3 +96,4 @@ for opt in st.session_state.options:
         new_question()
 
 st.write(f"現在の得点：{st.session_state.score}")
+
