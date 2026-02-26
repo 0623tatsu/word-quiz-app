@@ -4,39 +4,13 @@ import random
 st.set_page_config(page_title="英単語クイズ", page_icon="📘")
 
 words = {
-  　"reception": "もてなし、歓迎会、（ホテルの）フロント、受信状況",
-    "portion": "（食事の）一盛り、（食堂などの）一人前、一部",
-    "laundry": "洗濯、洗濯物、クリーニング店",
-    "nap": "昼寝、仮眠",
-    "wake": "目が覚める、〜を起こす",
-    "vending machine": "自動販売機",
-    "grocery": "食料雑貨店",
-    "appointment": "予約、面会の約束、任命・指名",
-    "consult": "〜に相談する、（辞書など）を引く",
-    "register": "〜を登録する、記録する、（授業などに）登録する",
-    "dye": "〜を染める、染まる",
-    "subscribe": "（to〜）〜を定期購読する、加入している",
-    "guarantee": "〜を保証する、保証",
-    "wipe": "〜を拭く、拭き取る、ぬぐう、消す",
-    "sweep": "（床・地面）を掃く、（風・波などが）〜を押し流す",
-    "transfer": "乗り換える、転勤・移籍する、〜を移す、（銀行で）振り込む",
-    "divorce": "離婚する、〜と離婚させる、離婚",
-    "fate": "運命、宿命（悪い運命のニュアンス）",
-    "destiny": "運命（託された必然の流れ）",
-    "luxury": "高級（品）、豪華さ、贅沢",
-    "credit": "クレジットカード、功績、（大学の）単位",
-    "questionnaire": "アンケート",
-    "reservation": "予約、保留、遠慮",
-    "fuss": "大騒ぎ、やきもき",
-    "reward": "報酬、賞金、〜に報酬を与える",
-    "farewell": "別れのあいさつ、送別",
-    "enclose": "同封する、囲む、閉じ込める",
-    "envelope": "封筒",
-    "trick": "いたずら、手口・策略、芸・手品",
-    "load": "大量の荷物、重荷",
-    "content": "内容、中身、（with〜）満足して",
-    "household": "家庭、家族、家庭の",
-    "good": "商品、利益、かなりの〜"
+    "reception": "もてなし、歓迎会、フロント",
+    "portion": "一盛り、一部",
+    "laundry": "洗濯物",
+    "nap": "昼寝",
+    "wake": "起こす",
+    "borrow": "借りる",
+    "lend": "貸す"
 }
 
 TOTAL_QUESTIONS = 5
