@@ -37,14 +37,14 @@ words = {
     "content": "内容、中身、（with〜）満足して",
     "household": "家庭、家族、家庭の",
     "good": "商品、利益、かなりの〜"
-    }
+}
 
-TOTAL_QUESTIONS = 5
+TOTAL_QUESTIONS = 10  # ← 出題数（自由に変えられる）
 
 # ===== 初期化 =====
 if "initialized" not in st.session_state:
 
-    # 出題する単語を最初にランダムで決定（重複なし）
+    # 重複なしで問題を選ぶ
     st.session_state.question_list = random.sample(
         list(words.keys()), TOTAL_QUESTIONS
     )
@@ -52,6 +52,7 @@ if "initialized" not in st.session_state:
     st.session_state.score = 0
     st.session_state.count = 0
     st.session_state.finished = False
+    st.session_state.answered = False
     st.session_state.initialized = True
 
 
@@ -68,6 +69,7 @@ def generate_question():
     st.session_state.q = q
     st.session_state.correct = correct
     st.session_state.options = options
+    st.session_state.answered = False
 
 
 if "q" not in st.session_state:
@@ -81,14 +83,25 @@ if not st.session_state.finished:
     st.write(f"問題 {st.session_state.count + 1} / {TOTAL_QUESTIONS}")
     st.subheader(st.session_state.q)
 
-    for opt in st.session_state.options:
-        if st.button(opt):
+    if not st.session_state.answered:
 
-            if opt == st.session_state.correct:
-                st.success("⭕ 正解！")
-                st.session_state.score += 1
-            else:
-                st.error(f"❌ 不正解… 正解：{st.session_state.correct}")
+        for opt in st.session_state.options:
+            if st.button(opt):
+                st.session_state.selected = opt
+                st.session_state.answered = True
+
+                if opt == st.session_state.correct:
+                    st.session_state.score += 1
+
+                st.rerun()
+
+    else:
+        if st.session_state.selected == st.session_state.correct:
+            st.success("⭕ 正解！")
+        else:
+            st.error(f"❌ 不正解… 正解：{st.session_state.correct}")
+
+        if st.button("➡ 次の問題へ"):
 
             st.session_state.count += 1
 
@@ -102,7 +115,9 @@ if not st.session_state.finished:
 # ===== 終了画面 =====
 else:
     st.header("🎉 クイズ終了！")
+    percent = int((st.session_state.score / TOTAL_QUESTIONS) * 100)
     st.write(f"スコア： {st.session_state.score} / {TOTAL_QUESTIONS}")
+    st.write(f"正答率： {percent}%")
 
     if st.button("もう一回やる"):
         for key in list(st.session_state.keys()):
